@@ -6,10 +6,9 @@ $rad=$_GET["rad"];
 
 
 $querysearch="SELECT ow_id, ow_nama,ow_tiket, st_x(st_centroid(the_geom)) as lon,st_y(st_centroid(the_geom)) as lat,
-	st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), objek_wisata.the_geom) as jarak 
-	FROM objek_wisata where st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1),
-	 objek_wisata.the_geom) <= ".$rad."	
-			 "; 
+	CAST(ST_DistanceSpheroid(ST_GeomFromText('POINT($longi $latit)',-1),ST_Centroid(objek_wisata.geom),'SPHEROID[\"WGS 84\",6378137,298.257223563]') As numeric) as jarak
+	FROM objek_wisata where CAST(ST_DistanceSpheroid(ST_GeomFromText('POINT($longi $latit)',-1),ST_Centroid(objek_wisata.geom),'SPHEROID[\"WGS 84\",6378137,298.257223563]') As numeric) <= ".$rad."
+			 ";
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))
 	{

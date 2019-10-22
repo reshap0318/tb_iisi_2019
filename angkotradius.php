@@ -4,10 +4,11 @@ $latit=$_GET["lat"];
 $longi=$_GET["lng"];
 $rad=$_GET["rad"];
 
-$querysearch="SELECT id, destination, track, route_color, st_x(st_centroid(geom)) as lng,st_y(st_centroid(geom)) as lat,
-	st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), angkot.geom) as jarak 
-	FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1),
-	 angkot.geom) <= ".$rad." order by destination asc"; 
+$querysearch = "select id, destination, track, route_color, st_x(st_centroid(geom)) as lng,st_y(st_centroid(geom)) as lat,
+CAST(ST_DistanceSpheroid(ST_GeomFromText('POINT($longi $latit)',-1),ST_Centroid(angkot.geom),'SPHEROID[\"WGS 84\",6378137,298.257223563]') As numeric) as jarak
+from angkot where CAST(ST_DistanceSpheroid(ST_GeomFromText('POINT($longi $latit)',-1),ST_Centroid(angkot.geom),'SPHEROID[\"WGS 84\",6378137,298.257223563]') As numeric) < $rad
+order by destination asc";
+die($querysearch);
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))
 	{
