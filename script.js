@@ -2678,7 +2678,7 @@ function tampilkatwilayah(){ //fungsi cari berdasarkan wilayah dan kategori
       hapusMarkerTerdekat();
     console.log(cari);
             $.ajax({
-            url: server+'/carikatwilayah.php?id='+b+'&cari='+cari, data: "", dataType: 'json', success: function(rows)
+            url: server+'carikatwilayah.php?id='+b+'&cari='+cari, data: "", dataType: 'json', success: function(rows)
             {
 
         if(rows==null)

@@ -1,7 +1,9 @@
 <?php
 include ('../inc/connect.php');
-$id = $_GET['id'];
-	$sql   = "delete from detail_event where id_det_event='$id'";
+	$id = $_GET['id'];
+	$date = $_GET['date'];
+	$jam = $_GET['jam'];
+	$sql   = "delete from detail_event where time='$jam' and date='$date' and id_worship_place='$id'";
 
 	$delete = pg_query($sql);
 	if ($delete){

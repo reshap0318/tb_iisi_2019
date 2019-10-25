@@ -2,11 +2,11 @@
 require 'connect.php';
 if(isset($_GET['tgl']))
 {
-$tgl = $_GET['tgl']; 
+$tgl = DateTime::createFromFormat('m-d-Y', $_GET['tgl'])->format('Y-m-d');
 
 $querysearch = "SELECT d.id_worship_place, d.date, d.time, b.name as event_name, a.name as worship_place_name, ST_X(ST_Centroid(a.geom)) AS longitude, ST_Y(ST_CENTROID(a.geom)) As latitude from worship_place as a, event as b left join detail_event as d ON b.id=d.id_event where d.date='$tgl' and a.id=d.id_worship_place group by id_event, id_worship_place, a.name, b.name, d.date, d.time,geom";
 
-			   
+
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))
     {
@@ -32,6 +32,6 @@ while($row = pg_fetch_array($hasil))
 		  $latitude=$row['latitude'];
           $dataarray[]=array('longitude'=>$longitude, 'latitude'=>$latitude, 'id_worship_place'=>$row['id_worship_place']);
     }
-echo json_encode ($dataarray);	
+echo json_encode ($dataarray);
 }
 ?>

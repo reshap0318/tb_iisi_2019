@@ -8,8 +8,8 @@ $querysearch = "select id, destination, track, route_color, st_x(st_centroid(geo
 CAST(ST_DistanceSpheroid(ST_GeomFromText('POINT($longi $latit)',-1),ST_Centroid(angkot.geom),'SPHEROID[\"WGS 84\",6378137,298.257223563]') As numeric) as jarak
 from angkot where CAST(ST_DistanceSpheroid(ST_GeomFromText('POINT($longi $latit)',-1),ST_Centroid(angkot.geom),'SPHEROID[\"WGS 84\",6378137,298.257223563]') As numeric) < $rad
 order by destination asc";
-die($querysearch);
 $hasil=pg_query($querysearch);
+$dataarray = [];
 while($row = pg_fetch_array($hasil))
 	{
 		  $id=$row['id'];

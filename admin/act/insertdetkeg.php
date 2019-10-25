@@ -1,13 +1,14 @@
 <?php
 include ('../inc/connect.php');
 session_start();
-$id_detail_keg = $_POST['id_detail_keg'];
 $keg = $_POST['keg'];
 $jam = $_POST['jam'];
-$tgl = $_POST['tgl'];
+$tgl = DateTime::createFromFormat('m-d-Y', $_POST['tgl'])->format('Y-m-d');
 $ustad = $_POST['ustad'];
 $penyelenggara = $_POST['penyelenggara'];
-$sql = pg_query("insert into detail_event values ('$tgl','$jam', '$ustad','$keg','$_SESSION[id]', '$penyelenggara')");
+$sql = "insert into detail_event values ('$tgl','$jam', '$ustad','$keg','$_SESSION[id]', '$penyelenggara')";
+
+$sql = pg_query("$sql");
 
 if ($sql){
 	echo "<script>
