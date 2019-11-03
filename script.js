@@ -359,7 +359,7 @@ function aktifkanRadius(){ //fungsi radius mesjid
     else {
     hapusRadius();
     var inputradiusangkot=document.getElementById("inputradiusangkot").value;
-	console.log(inputradiusangkot);
+    console.log(inputradiusangkot);
     var circle = new google.maps.Circle({
       center: pos,
       radius: parseFloat(inputradiusangkot*100),
@@ -2649,17 +2649,22 @@ function hotelsekitar(latitude,longitude,rad){ // HOTEL SEKITAR MASJID
 
 //menampilkan checkbox fasilitas
 function fasilitas(){
-
   $('#fasilitaslist .checkbox').remove();
+  $('#co-fasilitas-f1-y .checkbox').remove();
+  $('#co_fasilitas_f2_re .checkbox').remove();
+  $('#co_fasilitas_f3_re .checkbox').remove();
+  $('#co_fasilitas_f5_re .checkbox').remove();
   var v=fasilitaslist.value;
   $.ajax({ url: server+'fasilitas.php?id='+v, data: "", dataType: 'json', success: function(rows){
     for (var i in rows){
-      console.log("hy");
       var row = rows[i];
       var id_fasilitas=row.id;
       var nama_fasilitas=row.name;
-      console.log(id_fasilitas);
       $('#fasilitaslist').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
+      $('#co-fasilitas-f1-y').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_y" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
+      $('#co_fasilitas_f2_re').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_r_f2" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
+      $('#co_fasilitas_f3_re').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_r_f3" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
+      $('#co_fasilitas_f5_re').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_r_f5" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
     }
   }});
 }
