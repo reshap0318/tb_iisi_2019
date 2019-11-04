@@ -1297,5 +1297,6 @@ $('[data-toggle="tooltip"]').tooltip();
 <script type="text/javascript" src="k3.js"></script>
 <script type="text/javascript" src="fu25Aldo.js"></script>
 <script type="text/javascript" src="fu25Yola.js"></script>
+<script type="text/javascript" src="fu25Astri.js"></script>
   </body>
 </html>

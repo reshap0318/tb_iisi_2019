@@ -42,7 +42,7 @@
     join detail_worship_place on worship_place.id=detail_worship_place.id_worship_place
     join angkot on detail_worship_place.id_angkot=angkot.id
     join angkot_color on angkot.id_color=angkot_color.id
-    where ustad.name like '%ustad%'
+    where ustad.name like '%$ustad%'
     AND angkot_color.color= '$warna'
     AND event.name like '%$event%'";
   }
