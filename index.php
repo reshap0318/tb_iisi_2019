@@ -318,6 +318,67 @@
                             </div>
                           </ul>
                         </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 2</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+                              <div class="form-group">
+                                <a style="margin-top: -20px; color: white" ><span>Public Transportation</span></a>
+                                <select class="form-control" style="width: 90%;" id="se_angkot_f2_a" >
+                                  <?php
+                                        include("connect.php");
+                                        $angkot=pg_query("select * from angkot ");
+                                        while($rowangkot = pg_fetch_assoc($angkot))
+                                        {
+                                          echo"<option value=".$rowangkot['id'].">".$rowangkot['destination']."</option>";
+                                        }
+                                  ?>
+                                </select>
+                                <br>
+                              </div>
+                              <button type="submit" class="btn btn-default" onclick='cari_f2a()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 3</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 4</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 5</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -373,6 +434,54 @@
                             </div>
                           </ul>
                         </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 2</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 3</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 4</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 5</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -420,6 +529,54 @@
                                 <br>
                               </div>
                                 <button type="submit" class="btn btn-default" onclick='cari_f1ra()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 2</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 3</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 4</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 5</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -478,7 +635,7 @@
                                 <option value="">--Type Event--</option>
                                     <?php
                                            include "connect.php";
-                                            $result=  pg_query("SELECT * FROM `type_event`");
+                                            $result=  pg_query("SELECT * FROM type_event");
                                               while($baris = pg_fetch_array($result))
                                             {
                                               echo "<option value=".$baris["id"].">".$baris["name"]."</option>";
@@ -669,6 +826,115 @@
                                 <br>
                               </div>
                               <button type="submit" class="btn btn-default" onclick='cari_f1y()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset();fasilitas()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 2</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+                              <div class="form-group">
+                                <label style="color:white;">Public Transportation</label>
+                                <select class="form-control" id="se_angkot_f2_y" >
+                                            <?php
+                                                   include "connect.php";
+                                                    $result=  pg_query("select * from angkot order by destination asc");
+                                                      while($baris = pg_fetch_array($result))
+                                                    {
+                                                      echo '<option value="'.$baris["id"].'">'.$baris["destination"].'</option>';
+                                                    }
+                                                  pg_close();
+
+                                              ?>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <label style="color:white;">Fasilitas Condition</label>
+                                <select class="form-control" id="se_kondisi_f2_y" >
+                                    <option value="">--Pilihan--</option>
+                                      <?php
+                                            include("connect.php");
+                                            $angkot=pg_query("select * from facility_condition ");
+                                            while($rowangkot = pg_fetch_array($angkot))
+                                            {
+                                              echo"<option value=".$rowangkot['id'].">".$rowangkot['condition']."</option>";
+                                            }
+                                        ?>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Fasilitas</span>
+                                <div class="" id="co_fasilitas_f2_y">
+                                  <div class="kategori"><h7 style="color :#f3fff4">Choose Facility</h7></div>
+                                </div>
+                                <br>
+                              </div>
+                              <button type="submit" class="btn btn-default" onclick='cari_f2y()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset();fasilitas()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 3</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Ustad Name</span>
+                                <input type="text" class="form-control" id="txt_ustad_f3_y" name="carihotel" placeholder="Search..." >
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Date Event</span>
+                                <input type="text" class="form-control" size="16" name="caritgl" id="txt_event_f3_y" value="">
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <label style="color:white;">Angkot Color</label>
+                                <select class="form-control" id="se_warna_f3_y" >
+                                    <option value="">--Pilihan--</option>
+                                      <?php
+                                            include("connect.php");
+                                            $angkot=pg_query("select * from angkot_color ");
+                                            while($rowangkot = pg_fetch_array($angkot))
+                                            {
+                                              echo"<option value=".$rowangkot['id'].">".$rowangkot['color']."</option>";
+                                            }
+                                        ?>
+                                </select>
+                                <br>
+                              </div>
+                              <button type="submit" class="btn btn-default" onclick='cari_f3y()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 4</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                            </div>
+                          </ul>
+                        </li>
+                        <li class="sub-menu">
+                          <a href="javascript:;" onclick="reset()">
+                            <i class="fa fa-calendar"></i>
+                            <span>Fungsional 5</span>
+                          </a>
+                          <ul class="sub">
+                            <div  class="panel-body" >
+
+                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -1030,5 +1296,6 @@ $('[data-toggle="tooltip"]').tooltip();
 
 <script type="text/javascript" src="k3.js"></script>
 <script type="text/javascript" src="fu25Aldo.js"></script>
+<script type="text/javascript" src="fu25Yola.js"></script>
   </body>
 </html>

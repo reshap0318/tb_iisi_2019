@@ -2654,6 +2654,8 @@ function fasilitas(){
   $('#co_fasilitas_f2_re .checkbox').remove();
   $('#co_fasilitas_f3_re .checkbox').remove();
   $('#co_fasilitas_f5_re .checkbox').remove();
+
+  $('#co_fasilitas_f2_y .checkbox').remove();
   var v=fasilitaslist.value;
   $.ajax({ url: server+'fasilitas.php?id='+v, data: "", dataType: 'json', success: function(rows){
     for (var i in rows){
@@ -2665,6 +2667,8 @@ function fasilitas(){
       $('#co_fasilitas_f2_re').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_r_f2" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
       $('#co_fasilitas_f3_re').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_r_f3" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
       $('#co_fasilitas_f5_re').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_r_f5" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
+
+      $('#co_fasilitas_f2_y').append('<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_y_f2" value="'+id_fasilitas+'">'+nama_fasilitas+'</label></div>');
     }
   }});
 }
