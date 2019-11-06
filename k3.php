@@ -235,7 +235,7 @@
       }
 
       if($lay!=""){
-        $sql .= " and detail_facility.id_facility in ('$lay')";
+        $sql .= " and detail_facility.id_facility in ($lay)";
       }
 
       if($kondisi!=""){

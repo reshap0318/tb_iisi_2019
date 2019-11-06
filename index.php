@@ -298,11 +298,11 @@
                             <div  class="panel-body" >
                               <div class="form-group">
                                 <span style="margin-top: -20px; color: white">Ustad Name</span>
-                                <input type="text" class="form-control" id="txt-ustad-f1-a" name="carimasjid" placeholder="Search..." >
+                                <input type="text" class="form-control" id="txt_ustad_f1" name="carimasjid" placeholder="Search..." >
                                 <br>
                               </div>
-                                <label style="color:white;">Category</label>
-                                <select class="form-control" id="se-kategori-f1-a" >
+                                <label style="color:white;">Category Worship Place</label>
+                                <select class="form-control" id="se_kategori_f1" >
                                             <?php
                                                    include "connect.php";
                                                     $result=  pg_query("select id as nilai, name as nama from category_worship_place order by nama ASC");
@@ -314,7 +314,7 @@
 
                                               ?>
                                 </select>
-                                <button type="submit" class="btn btn-default" onclick='cari_f1a()'><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-default" onclick='f1()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -326,20 +326,27 @@
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <a style="margin-top: -20px; color: white" ><span>Public Transportation</span></a>
-                                <select class="form-control" style="width: 90%;" id="se_angkot_f2_a" >
-                                  <?php
-                                        include("connect.php");
-                                        $angkot=pg_query("select * from angkot ");
-                                        while($rowangkot = pg_fetch_assoc($angkot))
-                                        {
-                                          echo"<option value=".$rowangkot['id'].">".$rowangkot['destination']."</option>";
-                                        }
-                                  ?>
-                                </select>
+                                <span style="margin-top: -20px; color: white">Event Name</span>
+                                <input type="text" class="form-control" id="txt_event_f3" name="carimasjid" placeholder="Search..." >
                                 <br>
                               </div>
-                              <button type="submit" class="btn btn-default" onclick='cari_f2a()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Fasilitas Worship Place</span>
+                                <div class="" id="co_fasilitas_f3">
+                                  <div class="kategori">
+                                    <h7 style="color :#f3fff4">Choose Facility</h7>
+                                  </div>
+                                  <?php
+                                    $sql = "select * from facility";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_f3" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <button type="submit" class="btn btn-default" onclick='f3()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -350,8 +357,21 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
-
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <a style="margin-top: -20px; color: white" ><span>Public Transportation</span></a>
+                                <select class="form-control" style="width: 90%;" id="se_angkot_f2" >
+                                  <?php
+                                  include("connect.php");
+                                  $angkot=pg_query("select * from angkot ");
+                                  while($rowangkot = pg_fetch_assoc($angkot))
+                                  {
+                                    echo"<option value=".$rowangkot['id'].">".$rowangkot['destination']."</option>";
+                                  }
+                                  ?>
+                                </select>
+                                <br>
+                              </div>
+                              <button type="submit" class="btn btn-default" onclick='f2()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -362,8 +382,37 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
+                              <div class="form-group">
+                                <label style="color:white;">Type Hotel</label>
+                                <select class="form-control" id="se_thotel_f21" >
+                                            <?php
+                                                   include "connect.php";
+                                                    $result=  pg_query("select * from hotel_type");
+                                                      while($baris = pg_fetch_array($result))
+                                                    {
+                                                      echo '<option value="'.$baris["id"].'">'.$baris["name"].'</option>';
+                                                    }
 
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                                              ?>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Fasilitas Hotel</span>
+                                <div class="" id="co_fasilitas_f21">
+                                  <div class="kategori"><h7 style="color :#f3fff4">Choose Facility</h7></div>
+                                  <?php
+                                    $sql = "select * from facility_hotel";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_f21" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f21">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f21()" id="ra_radius_f21" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
@@ -396,12 +445,12 @@
                             <div  class="panel-body" >
                               <div class="form-group">
                                 <span style="margin-top: -20px; color: white">Administrator Masjid Name</span>
-                                <input type="text" class="form-control" id="txt-garin-f1-d" name="carimasjid" placeholder="Search..." >
+                                <input type="text" class="form-control" id="txt_garin_f6" name="carimasjid" placeholder="Search..." >
                                 <br>
                               </div>
                               <div class="form-group">
-                                <label style="color:white;">Category</label>
-                                <select class="form-control" id="se-kategori-f1-d" >
+                                <label style="color:white;">Category Worship Place</label>
+                                <select class="form-control" id="se_kategori_f6" >
                                             <?php
                                                    include "connect.php";
                                                     $result=  pg_query("select id as nilai, name as nama from category_worship_place order by nama ASC");
@@ -417,7 +466,7 @@
                               </div>
                               <div class="form-group">
                                 <label style="color:white;">Public Transportation</label>
-                                <select class="form-control" id="se-angkot-f1-d" >
+                                <select class="form-control" id="se_angkot_f6" >
                                     <option value="">--Pilihan--</option>
                                       <?php
                                             include("connect.php");
@@ -430,7 +479,7 @@
                                 </select>
                                 <br>
                               </div>
-                                <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-default" onclick='f6()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -441,8 +490,39 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
-
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Event Type</span>
+                                <div class="" id="co_fasilitas_f12">
+                                  <div class="kategori">
+                                    <h7 style="color :#f3fff4">Choose Event Type</h7>
+                                  </div>
+                                  <?php
+                                    $sql = "select * from type_event";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="tevent_f12" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Fasilitas Worship Place</span>
+                                <div class="" id="co_fasilitas_f12">
+                                  <div class="kategori">
+                                    <h7 style="color :#f3fff4">Choose Facility</h7>
+                                  </div>
+                                  <?php
+                                    $sql = "select * from facility";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_f12" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <button type="submit" class="btn btn-default" onclick='f12()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -453,8 +533,27 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
-
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <a style="margin-top: -20px; color: white" ><span>Public Transportation</span></a>
+                                <select class="form-control" style="width: 90%;" id="se_angkot_f8" >
+                                  <?php
+                                        include("connect.php");
+                                        $angkot=pg_query("select * from angkot ");
+                                        while($rowangkot = pg_fetch_assoc($angkot))
+                                        {
+                                          echo"<option value=".$rowangkot['id'].">".$rowangkot['destination']."</option>";
+                                        }
+                                  ?>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <a style="margin-top: -20px; color: white" ><span>Restaurant Open In</span></a>
+                                <input type="text" class="form-control timepicker-default" name="jam" id="se_waktu_f8" value="">
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f8">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f8()" id="ra_radius_f8" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
@@ -499,7 +598,7 @@
                             <div  class="panel-body" >
                               <div class="form-group">
                                 <label style="color:white;">Sub District</label>
-                                <select class="form-control" id="se-kecamatan-f1-ra" >
+                                <select class="form-control" id="se_kecamatan_f1_ra" >
                                             <?php
                                                    include "connect.php";
                                                     $result=  pg_query("select id as nilai, name as nama from district order by nama ASC");
@@ -515,7 +614,7 @@
                               </div>
                               <div class="form-group">
                                 <label style="color:white;">Angkot Color</label>
-                                <select class="form-control" id="se-warna-f1-ra" >
+                                <select class="form-control" id="se_warna_f1_ra" >
                                     <option value="">--Pilihan--</option>
                                       <?php
                                             include("connect.php");
@@ -528,7 +627,7 @@
                                 </select>
                                 <br>
                               </div>
-                                <button type="submit" class="btn btn-default" onclick='cari_f1ra()'><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-default" onclick='f11()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -539,8 +638,42 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
-
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Administrator Masjid Name</span>
+                                <input type="text" class="form-control" id="txt_garin_f7" name="carimasjid" placeholder="Search..." >
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <label style="color:white;">Fasilitas Condition</label>
+                                <select class="form-control" id="se_kondisi_f7" >
+                                      <?php
+                                            include("connect.php");
+                                            $angkot=pg_query("select * from facility_condition ");
+                                            while($rowangkot = pg_fetch_array($angkot))
+                                            {
+                                              echo"<option value=".$rowangkot['id'].">".$rowangkot['condition']."</option>";
+                                            }
+                                        ?>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Fasilitas Worship Place</span>
+                                <div class="" id="co_fasilitas_f7">
+                                  <div class="kategori">
+                                    <h7 style="color :#f3fff4">Choose Facility</h7>
+                                  </div>
+                                  <?php
+                                    $sql = "select * from facility";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_f7" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <button type="submit" class="btn btn-default" onclick='f7()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -551,8 +684,37 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
-
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <label style="color:white;">Status Small Industry</label>
+                                <select class="form-control" id="se_status_f13" >
+                                    <option value="">--Pilihan--</option>
+                                      <?php
+                                            include("connect.php");
+                                            $angkot=pg_query("select * from status ");
+                                            while($rowangkot = pg_fetch_array($angkot))
+                                            {
+                                              echo"<option value=".$rowangkot['id'].">".$rowangkot['status']."</option>";
+                                            }
+                                        ?>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Product Small Industry</span>
+                                <div class="" id="co_fasilitas_f13">
+                                  <div class="kategori"><h7 style="color :#f3fff4">Choose Product</h7></div>
+                                  <?php
+                                    $sql = "select * from product_small_industry";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="produk_f13" value="'.$w['id'].'">'.$w['product'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f13">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f13()" id="ra_radius_f13" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
@@ -596,7 +758,7 @@
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <label style="color:white;">Category</label>
+                                <label style="color:white;">Category Worship Place</label>
                                 <select class="form-control" id="se-kategori-f1-re" >
                                     <option value="">--Category--</option>
                                     <?php
@@ -651,95 +813,107 @@
                           </ul>
                         </li>
                         <li class="sub-menu">
-                          <a href="javascript:;" onclick="reset();fasilitas();">
+                          <a href="javascript:;" onclick="reset()">
                             <i class="fa fa-calendar"></i>
                             <span>Fungsional 2</span>
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Event Name</span>
-                                <input type="text" class="form-control" id="txt_event_f2_re" name="carimasjid" placeholder="Search..." >
+                                <label style="color:white;">Type Hotel</label>
+                                <select class="form-control" id="se_thotel_f24" >
+                                            <?php
+                                                   include "connect.php";
+                                                    $result=  pg_query("select * from hotel_type");
+                                                      while($baris = pg_fetch_array($result))
+                                                    {
+                                                      echo '<option value="'.$baris["id"].'">'.$baris["name"].'</option>';
+                                                    }
+
+                                              ?>
+                                </select>
                                 <br>
                               </div>
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Fasilitas</span>
-                                <div class="" id="co_fasilitas_f2_re">
-                                  <div class="kategori">
-                                    <h7 style="color :#f3fff4">Choose Facility</h7>
-                                  </div>
-                                </div>
+                                <span style="margin-top: -20px; color: white">Min</span>
+                                <input type="text" class="form-control" id="txt_min_f24" name="carihotel" placeholder="Search..." >
                                 <br>
                               </div>
-                              <button type="submit" class="btn btn-default" onclick='cari_f2re()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Max</span>
+                                <input type="text" class="form-control" id="txt_max_f24" name="carihotel" placeholder="Search..." >
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f24">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f24()" id="ra_radius_f24" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
                         <li class="sub-menu">
-                          <a href="javascript:;" onclick="reset();fasilitas();">
+                          <a href="javascript:;" onclick="reset();">
                             <i class="fa fa-calendar"></i>
                             <span>Fungsional 3</span>
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Mesjid Administrators Name</span>
-                                <input type="text" class="form-control" id="txt_garin_f3_re" name="carihotel" placeholder="Search..." >
+                                <span style="margin-top: -20px; color: white">Mesjid Administrator Name</span>
+                                <input type="text" class="form-control" id="txt_garin_f22" name="carihotel" placeholder="Search..." >
                                 <br>
                               </div>
                               <div class="form-group">
-                                <label style="color:white;">Fasilitas Condition</label>
-                                <select class="form-control" id="se_kondisi_f3_re" >
-                                    <option value="">--Pilihan--</option>
-                                      <?php
-                                            include("connect.php");
-                                            $angkot=pg_query("select * from facility_condition ");
-                                            while($rowangkot = pg_fetch_array($angkot))
-                                            {
-                                              echo"<option value=".$rowangkot['id'].">".$rowangkot['condition']."</option>";
-                                            }
-                                        ?>
-                                </select>
+                                <label style="color:white;">Event Name</label>
+                                <input type="text" class="form-control" id="txt_event_f22" name="carihotel" placeholder="Search..." >
                                 <br>
                               </div>
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Fasilitas</span>
-                                <div class="" id="co_fasilitas_f3_re">
-                                  <div class="kategori">
-                                    <h7 style="color :#f3fff4">Choose Facility</h7>
-                                  </div>
-                                </div>
+                                <span style="margin-top: -20px; color: white">Ustad Name</span>
+                                <input type="text" class="form-control" id="txt_ustad_f22" name="carihotel" placeholder="Search..." >
                                 <br>
                               </div>
-                              <button type="submit" class="btn btn-default" onclick='cari_f3re()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <button type="submit" class="btn btn-default" onclick='f22()'><i class="fa fa-search"></i></button>
+                              </div>
                             </div>
                           </ul>
                         </li>
                         <li class="sub-menu">
-                          <a href="javascript:;" onclick="reset();fasilitas();">
+                          <a href="javascript:;" onclick="reset();">
                             <i class="fa fa-calendar"></i>
                             <span>Fungsional 4</span>
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Mesjid Administrator Name</span>
-                                <input type="text" class="form-control" id="txt_garin_f4_re" name="carihotel" placeholder="Search..." >
+                                <label style="color:white;">Public Transportation</label>
+                                <select class="form-control" id="se_angkot_f23" >
+                                            <?php
+                                                   include "connect.php";
+                                                    $result=  pg_query("select * from angkot order by destination asc");
+                                                      while($baris = pg_fetch_array($result))
+                                                    {
+                                                      echo '<option value="'.$baris["id"].'">'.$baris["destination"].'</option>';
+                                                    }
+                                              ?>
+                                </select>
                                 <br>
                               </div>
                               <div class="form-group">
-                                <label style="color:white;">Event Name</label>
-                                <input type="text" class="form-control" id="txt_event_f4_re" name="carihotel" placeholder="Search..." >
+                                <span style="margin-top: -20px; color: white">Fasilitas Culinary</span>
+                                <div class="" id="co_fasilitas_f23">
+                                  <div class="kategori"><h7 style="color :#f3fff4">Choose Facility</h7></div>
+                                  <?php
+                                    $sql = "select * from facility_culinary";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_f23" value="'.$w['id'].'">'.$w['facility'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
                                 <br>
                               </div>
-                              <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Ustad Name</span>
-                                <input type="text" class="form-control" id="txt_ustad_f4_re" name="carihotel" placeholder="Search..." >
-                                <br>
-                              </div>
-                              <div class="form-group">
-                                <button type="submit" class="btn btn-default" onclick='cari_f4re()'><i class="fa fa-search"></i></button>
-                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f23">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f23()" id="ra_radius_f23" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
@@ -751,24 +925,40 @@
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Type Event</span>
-                                <div class="" id="co_type_event_f5_re">
-                                  <div class="kategori">
-                                    <h7 style="color :#f3fff4">Choose Type Event</h7>
-                                  </div>
+                                <span style="margin-top: -20px; color: white">Type Tourism</span>
+                                <div class="" id="co_type_f25">
+                                  <div class="kategori"><h7 style="color :#f3fff4">Choose Type</h7></div>
+                                  <?php
+                                    $sql = "select * from tourism_type";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="type_f25" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
                                 </div>
                                 <br>
                               </div>
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Fasilitas</span>
-                                <div class="" id="co_fasilitas_f5_re">
-                                  <div class="kategori">
-                                    <h7 style="color :#f3fff4">Choose Facility</h7>
-                                  </div>
-                                </div>
+                                <a style="margin-top: -20px; color: white" ><span>Public Transportation</span></a>
+                                <select class="form-control" style="width: 90%;" id="se_angkot_f25" >
+                                  <?php
+                                        include("connect.php");
+                                        $angkot=pg_query("select * from angkot ");
+                                        while($rowangkot = pg_fetch_assoc($angkot))
+                                        {
+                                          echo"<option value=".$rowangkot['id'].">".$rowangkot['destination']."</option>";
+                                        }
+                                  ?>
+                                </select>
                                 <br>
                               </div>
-                              <button type="submit" class="btn btn-default" onclick='cari_f5re()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <a style="margin-top: -20px; color: white" ><span>Tourism Open In</span></a>
+                                <input type="text" class="form-control timepicker-default" name="jam" id="se_waktu_f25" value="">
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f25">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f25()" id="ra_radius_f25" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
@@ -788,8 +978,8 @@
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <label style="color:white;">Kategori</label>
-                                <select class="form-control" id="se-kategori-f1-y" >
+                                <label style="color:white;">Kategori Worship Place</label>
+                                <select class="form-control" id="se_kategori_f16" >
                                             <?php
                                                    include "connect.php";
                                                     $result=  pg_query("select id as nilai, name as nama from category_worship_place order by nama ASC");
@@ -805,7 +995,7 @@
                               </div>
                               <div class="form-group">
                                 <label style="color:white;">Fasilitas Condition</label>
-                                <select class="form-control" id="se-kondisi-f1-y" >
+                                <select class="form-control" id="se_kondisi_f16" >
                                     <option value="">--Pilihan--</option>
                                       <?php
                                             include("connect.php");
@@ -819,13 +1009,20 @@
                                 <br>
                               </div>
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Fasilitas</span>
-                                <div class="" id="co-fasilitas-f1-y">
+                                <span style="margin-top: -20px; color: white">Fasilitas Worship Place</span>
+                                <div class="" id="co_fasilitas_f16">
                                   <div class="kategori"><h7 style="color :#f3fff4">Choose Facility</h7></div>
+                                  <?php
+                                    $sql = "select * from facility";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_f16" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
                                 </div>
                                 <br>
                               </div>
-                              <button type="submit" class="btn btn-default" onclick='cari_f1y()'><i class="fa fa-search"></i></button>
+                              <button type="submit" class="btn btn-default" onclick='f16()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -838,7 +1035,7 @@
                             <div  class="panel-body" >
                               <div class="form-group">
                                 <label style="color:white;">Public Transportation</label>
-                                <select class="form-control" id="se_angkot_f2_y" >
+                                <select class="form-control" id="se_angkot_f17" >
                                             <?php
                                                    include "connect.php";
                                                     $result=  pg_query("select * from angkot order by destination asc");
@@ -854,7 +1051,7 @@
                               </div>
                               <div class="form-group">
                                 <label style="color:white;">Fasilitas Condition</label>
-                                <select class="form-control" id="se_kondisi_f2_y" >
+                                <select class="form-control" id="se_kondisi_f17" >
                                     <option value="">--Pilihan--</option>
                                       <?php
                                             include("connect.php");
@@ -868,13 +1065,20 @@
                                 <br>
                               </div>
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Fasilitas</span>
-                                <div class="" id="co_fasilitas_f2_y">
+                                <span style="margin-top: -20px; color: white">Fasilitas Worship Place</span>
+                                <div class="" id="co_fasilitas_f17">
                                   <div class="kategori"><h7 style="color :#f3fff4">Choose Facility</h7></div>
+                                  <?php
+                                    $sql = "select * from facility";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="fasilitas_f17" value="'.$w['id'].'">'.$w['name'].'</label></div>';
+                                    }
+                                  ?>
                                 </div>
                                 <br>
                               </div>
-                              <button type="submit" class="btn btn-default" onclick='cari_f2y()'><i class="fa fa-search"></i></button>
+                              <button type="submit" class="btn btn-default" onclick='f17()'><i class="fa fa-search"></i></button>
                             </div>
                           </ul>
                         </li>
@@ -886,31 +1090,36 @@
                           <ul class="sub">
                             <div  class="panel-body" >
                               <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Ustad Name</span>
-                                <input type="text" class="form-control" id="txt_ustad_f3_y" name="carihotel" placeholder="Search..." >
-                                <br>
-                              </div>
-                              <div class="form-group">
-                                <span style="margin-top: -20px; color: white">Date Event</span>
-                                <input type="text" class="form-control" size="16" name="caritgl" id="txt_event_f3_y" value="">
-                                <br>
-                              </div>
-                              <div class="form-group">
-                                <label style="color:white;">Angkot Color</label>
-                                <select class="form-control" id="se_warna_f3_y" >
+                                <label style="color:white;">Status Souvenir</label>
+                                <select class="form-control" id="se_status_f18" >
                                     <option value="">--Pilihan--</option>
                                       <?php
                                             include("connect.php");
-                                            $angkot=pg_query("select * from angkot_color ");
+                                            $angkot=pg_query("select * from status ");
                                             while($rowangkot = pg_fetch_array($angkot))
                                             {
-                                              echo"<option value=".$rowangkot['id'].">".$rowangkot['color']."</option>";
+                                              echo"<option value=".$rowangkot['id'].">".$rowangkot['status']."</option>";
                                             }
                                         ?>
                                 </select>
                                 <br>
                               </div>
-                              <button type="submit" class="btn btn-default" onclick='cari_f3y()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Product Souvenir</span>
+                                <div class="" id="co_fasilitas_f18">
+                                  <div class="kategori"><h7 style="color :#f3fff4">Choose Product</h7></div>
+                                  <?php
+                                    $sql = "select * from product_souvenir";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="produk_f18" value="'.$w['id'].'">'.$w['product'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f18">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f18()" id="ra_radius_f18" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
@@ -921,8 +1130,37 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
+                              <div class="form-group">
+                                <label style="color:white;">Type Hotel</label>
+                                <select class="form-control" id="se_thotel_f4" >
+                                            <?php
+                                                   include "connect.php";
+                                                    $result=  pg_query("select * from hotel_type");
+                                                      while($baris = pg_fetch_array($result))
+                                                    {
+                                                      echo '<option value="'.$baris["id"].'">'.$baris["name"].'</option>';
+                                                    }
 
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                                              ?>
+                                </select>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <label style="color:white;">Public Transportation</label>
+                                <select class="form-control" id="se_angkot_f4" >
+                                            <?php
+                                                   include "connect.php";
+                                                    $result=  pg_query("select * from angkot order by destination asc");
+                                                      while($baris = pg_fetch_array($result))
+                                                    {
+                                                      echo '<option value="'.$baris["id"].'">'.$baris["destination"].'</option>';
+                                                    }
+                                              ?>
+                                </select>
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f4">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f4()" id="ra_radius_f4" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>
@@ -1298,5 +1536,6 @@ $('[data-toggle="tooltip"]').tooltip();
 <script type="text/javascript" src="fu25Aldo.js"></script>
 <script type="text/javascript" src="fu25Yola.js"></script>
 <script type="text/javascript" src="fu25Astri.js"></script>
+<script type="text/javascript" src="kelp3.js"></script>
   </body>
 </html>
