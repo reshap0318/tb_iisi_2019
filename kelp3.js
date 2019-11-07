@@ -164,7 +164,21 @@ function f19() {
 }
 
 function f20() {
-  var link = '';
+  var inp_type=[];
+  for(i=0;i<$("input[name=type_f20]:checked").length;i++){
+    inp_type.push($("input[name=type_f20]:checked")[i].value);
+  }
+
+  var inp_color=[];
+  for(i=0;i<$("input[name=color_f20]:checked").length;i++){
+    inp_color.push($("input[name=color_f20]:checked")[i].value);
+  }
+
+  var inp_rad = $('#ra_radius_f20').val();
+  inp_rad = inp_rad*100;
+  $('#angka_f20').html(inp_rad);
+
+  var link = 'kelp3.php?kode=f20&color='+inp_color+'&type='+inp_type+'&rad='+inp_rad;
   ajaxkelp3(link);
 }
 

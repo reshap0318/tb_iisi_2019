@@ -310,8 +310,6 @@
                                                     {
                                                       echo "<option value=".$baris["nilai"].">".$baris["nama"]."</option>";
                                                     }
-                                                  pg_close();
-
                                               ?>
                                 </select>
                                 <button type="submit" class="btn btn-default" onclick='f1()'><i class="fa fa-search"></i></button>
@@ -564,8 +562,40 @@
                           </a>
                           <ul class="sub">
                             <div  class="panel-body" >
-
-                              <button type="submit" class="btn btn-default" onclick='cari_f1d()'><i class="fa fa-search"></i></button>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Status Souvenir</span>
+                                <div class="" id="co_type_f20">
+                                  <div class="kategori">
+                                    <h7 style="color :#f3fff4">Choose Status</h7>
+                                  </div>
+                                  <?php
+                                    $sql = "select * from status";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="type_f20" value="'.$w['id'].'">'.$w['status'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <div class="form-group">
+                                <span style="margin-top: -20px; color: white">Angkot Color</span>
+                                <div class="" id="co_color_f20">
+                                  <div class="kategori">
+                                    <h7 style="color :#f3fff4">Choose Color</h7>
+                                  </div>
+                                  <?php
+                                    $sql = "select * from angkot_color";
+                                    $hasil = pg_query($sql);
+                                    while ($w = pg_fetch_assoc($hasil)) {
+                                        echo '<div class="checkbox" style="color: #f3fff4"><label><input type="checkbox" name="color_f20" value="'.$w['id'].'">'.$w['color'].'</label></div>';
+                                    }
+                                  ?>
+                                </div>
+                                <br>
+                              </div>
+                              <a style="margin-top: -20px; color: white" ><span>Nearby</span>&nbsp<b id="angka_f20">0</b>&nbsp<b>m</b></a>
+                              <input  type="range" onchange="f20()" id="ra_radius_f20" name="inputradiusangkot" data-highlight="true" min="0.5" max="15" value="0.5">
                             </div>
                           </ul>
                         </li>

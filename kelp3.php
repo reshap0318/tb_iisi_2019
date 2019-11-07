@@ -273,11 +273,31 @@
 
       $sql = "";
   }
-  else if( $kode=='f20' && isset($_GET['kategori']) && isset($_GET['ustad_name']) ){
-      $kategori = $_GET['kategori'];
-      $ustad_name = $_GET['ustad_name'];
+  else if( $kode=='f20' && isset($_GET['type']) && isset($_GET['color']) && isset($_GET['rad']) ){
+      $type = $_GET['type'];
+      $type = str_replace(",","','",$type);
+      $type = "'".$type."'";
+      $color = $_GET['color'];
+      $rad = $_GET['rad'];
 
-      $sql = "";
+      $sql = "select distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as longitude,
+              st_y(st_centroid(worship_place.geom)) as latitude, 'wp' as cat
+              from worship_place
+              join souvenir on ST_DistanceSphere(worship_place.geom, souvenir.geom) < $rad
+              join status on souvenir.id_status = status.id
+              join detail_souvenir on souvenir.id = detail_souvenir.id_souvenir
+              join angkot on detail_souvenir.id_angkot = angkot.id
+              where status.id in ($type)
+              and angkot.id_color in ($color)
+              union
+              select distinct souvenir.id, souvenir.name, st_x(st_centroid(souvenir.geom)) as longitude,
+              st_y(st_centroid(souvenir.geom)) as latitude, 's' as cat
+              from souvenir
+              join status on souvenir.id_status = status.id
+              join detail_souvenir on souvenir.id = detail_souvenir.id_souvenir
+              join angkot on detail_souvenir.id_angkot = angkot.id
+              where status.id in ($type)
+              and angkot.id_color in ($color)";
   }
   else if( $kode=='f21' && isset($_GET['hotel_type']) && isset($_GET['fasilitas_hotel']) && isset($_GET['rad']) ){
     $fasilitas = $_GET['fasilitas_hotel'];
