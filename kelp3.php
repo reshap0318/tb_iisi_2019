@@ -140,17 +140,55 @@
             where '$waktu' between restaurant.open and restaurant.close
             and angkot.id = '$angkot'";
   }
-  else if( $kode=='f9' && isset($_GET['kategori']) && isset($_GET['ustad_name']) ){
-      $kategori = $_GET['kategori'];
-      $ustad_name = $_GET['ustad_name'];
+  else if( $kode=='f9' && isset($_GET['max']) && isset($_GET['min'])  && isset($_GET['fasilitas_culinary']) && isset($_GET['rad']) ){
+      $fasilitas_culinary = $_GET['fasilitas_culinary'];
+      $fasilitas_culinary = str_replace(",","','",$fasilitas_culinary);
+      $max = $_GET['max'];
+      $min = $_GET['min'];
+      $rad = $_GET['rad'];
 
-      $sql = "";
+      $sql = "select distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as longitude,
+              st_y(st_centroid(worship_place.geom)) as latitude, 'wp' as cat
+              from worship_place
+              join culinary_place on ST_DistanceSphere(worship_place.geom, culinary_place.geom) < $rad
+              join detail_culinary on culinary_place.id = detail_culinary.id_culinary_place
+              join detail_facility_culinary as dfc on dfc.id_culinary_place = culinary_place.id
+              join facility_culinary on dfc.id_facility = facility_culinary.id
+              where facility_culinary.id in ('$fasilitas_culinary')
+              and detail_culinary.price between $min and $max
+              union
+              select distinct culinary_place.id, culinary_place.name, st_x(st_centroid(culinary_place.geom)) as longitude,st_y(st_centroid(culinary_place.geom)) as latitude,
+              'c' as cat
+              from culinary_place
+              join detail_culinary on culinary_place.id = detail_culinary.id_culinary_place
+              join detail_facility_culinary as dfc on dfc.id_culinary_place = culinary_place.id
+              join facility_culinary on dfc.id_facility = facility_culinary.id
+              where facility_culinary.id in ('$fasilitas_culinary')
+              and detail_culinary.price between $min and $max";
   }
-  else if( $kode=='f10' && isset($_GET['kategori']) && isset($_GET['ustad_name']) ){
-      $kategori = $_GET['kategori'];
-      $ustad_name = $_GET['ustad_name'];
+  else if( $kode=='f10' && isset($_GET['fasilitas_tourism']) && isset($_GET['type_tourism'])  && isset($_GET['waktu']) && isset($_GET['rad']) ){
+      $fasilitas_tourism = $_GET['fasilitas_tourism'];
+      $fasilitas_tourism = str_replace(",","','",$fasilitas_tourism);
+      $type_tourism = $_GET['type_tourism'];
+      $waktu = $_GET['waktu'];
+      $rad = $_GET['rad'];
 
-      $sql = "";
+      $sql = "select distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as longitude,st_y(st_centroid(worship_place.geom)) as latitude, 'wp' as cat from worship_place
+            join tourism on ST_DistanceSphere(worship_place.geom, tourism.geom) < $rad
+            join tourism_type on tourism.id_type = tourism_type.id
+            join detail_facility_tourism on tourism.id = detail_facility_tourism.id_tourism
+            join facility_tourism on detail_facility_tourism.id_facility = facility_tourism.id
+            where tourism_type.id = '$type_tourism'
+            and facility_tourism.id in ('$fasilitas_tourism')
+            and '$waktu' between tourism.open and tourism.close
+            union
+            select distinct tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as longitude,st_y(st_centroid(tourism.geom)) as latitude, 't' as cat from tourism
+            join tourism_type on tourism.id_type = tourism_type.id
+            join detail_facility_tourism on tourism.id = detail_facility_tourism.id_tourism
+            join facility_tourism on detail_facility_tourism.id_facility = facility_tourism.id
+            where tourism_type.id = '$type_tourism'
+            and facility_tourism.id in ('$fasilitas_tourism')
+            and '$waktu' between tourism.open and tourism.close";
   }
   //randa
   else if( $kode=='f11' && isset($_GET['kecamatan']) && isset($_GET['angkot_color']) ){
@@ -199,17 +237,59 @@
               where product_small_industry.id in ($produk)
               and status.id = '$status'";
   }
-  else if( $kode=='f14' && isset($_GET['kategori']) && isset($_GET['ustad_name']) ){
-      $kategori = $_GET['kategori'];
-      $ustad_name = $_GET['ustad_name'];
+  else if( $kode=='f14' && isset($_GET['industry_type']) && isset($_GET['max']) && isset($_GET['min']) && isset($_GET['kecamatan']) && isset($_GET['rad']) ){
+    $rad = $_GET['rad'];
+    $industry_type = $_GET['industry_type'];
+    $max = $_GET['max'];
+    $min = $_GET['min'];
+    $kecamatan = $_GET['kecamatan'];
 
-      $sql = "";
+    $sql = "select distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as longitude,st_y(st_centroid(worship_place.geom)) as latitude, 'wp' as cat from worship_place
+            join small_industry on ST_DistanceSphere(worship_place.geom, small_industry.geom) < $rad
+            join detail_product_small_industry as dpsi on small_industry.id = dpsi.id_small_industry
+            join product_small_industry on dpsi.id_product = product_small_industry.id
+            join industry_type on small_industry.id_industry_type = industry_type.id
+            where industry_type.id = '$industry_type'
+            and dpsi.price between $min and $max
+            and st_contains((SELECT geom from district where id = '$kecamatan'), worship_place.geom)
+            union
+            select distinct small_industry.id, small_industry.name, st_x(st_centroid(small_industry.geom)) as longitude,st_y(st_centroid(small_industry.geom)) as latitude, 'si' as cat from small_industry
+            join detail_product_small_industry as dpsi on small_industry.id = dpsi.id_small_industry
+            join product_small_industry on dpsi.id_product = product_small_industry.id
+            join industry_type on small_industry.id_industry_type = industry_type.id
+            where industry_type.id = '$industry_type'
+            and dpsi.price between $min and $max
+            and st_contains((SELECT geom from district where id = '$kecamatan'), small_industry.geom)";
   }
-  else if( $kode=='f15' && isset($_GET['kategori']) && isset($_GET['ustad_name']) ){
-      $kategori = $_GET['kategori'];
-      $ustad_name = $_GET['ustad_name'];
+  else if( $kode=='f15' && isset($_GET['max']) && isset($_GET['min']) && isset($_GET['souvenir_type']) && isset($_GET['rad']) && isset($_GET['angkot']) ){
+      $max = $_GET['max'];
+      $min = $_GET['min'];
+      $souvenir_type = $_GET['souvenir_type'];
+      $angkot = $_GET['angkot'];
+      $rad = $_GET['rad'];
 
-      $sql = "";
+      $sql = "select distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as longitude,
+              st_y(st_centroid(worship_place.geom)) as latitude, 'wp' as cat
+              from worship_place
+              join souvenir on ST_DistanceSphere(worship_place.geom, souvenir.geom) < $rad
+              join souvenir_type on souvenir.id_souvenir_type = souvenir_type.id
+              join detail_product_souvenir on detail_product_souvenir.id_souvenir = souvenir.id
+              join detail_souvenir on souvenir.id = detail_souvenir.id_souvenir
+              join angkot on detail_souvenir.id_angkot = angkot.id
+              where souvenir_type.id = '$souvenir_type'
+              and detail_product_souvenir.price between $min and $max
+              and angkot.id = '$angkot'
+              union
+              select distinct souvenir.id, souvenir.name, st_x(st_centroid(souvenir.geom)) as longitude,
+              st_y(st_centroid(souvenir.geom)) as latitude, 's' as cat
+              from souvenir
+              join souvenir_type on souvenir.id_souvenir_type = souvenir_type.id
+              join detail_product_souvenir on detail_product_souvenir.id_souvenir = souvenir.id
+              join detail_souvenir on souvenir.id = detail_souvenir.id_souvenir
+              join angkot on detail_souvenir.id_angkot = angkot.id
+              where souvenir_type.id = '$souvenir_type'
+              and detail_product_souvenir.price between $min and $max
+              and angkot.id = '$angkot'";
   }
   //yola
   else if( $kode=='f16' && isset($_GET['kategori']) && isset($_GET['fasilitas']) && isset($_GET['kondisi']) ){
@@ -267,11 +347,27 @@
               where product_souvenir.id in ($produk)
               and status.id = '$status'";
   }
-  else if( $kode=='f19' && isset($_GET['kategori']) && isset($_GET['ustad_name']) ){
-      $kategori = $_GET['kategori'];
-      $ustad_name = $_GET['ustad_name'];
+  else if( $kode=='f19' && isset($_GET['waktu']) && isset($_GET['culinary']) && isset($_GET['rad']) ){
+      $waktu = $_GET['waktu'];
+      $culinary = $_GET['culinary'];
+      $rad = $_GET['rad'];
 
-      $sql = "";
+      $sql = "select distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as longitude,
+              st_y(st_centroid(worship_place.geom)) as latitude, 'wp' as cat
+              from worship_place
+              join culinary_place on ST_DistanceSphere(worship_place.geom, culinary_place.geom) < $rad
+              join detail_culinary on culinary_place.id = detail_culinary.id_culinary_place
+              join culinary on detail_culinary.id_culinary = culinary.id
+              where LOWER(culinary.name) like concat('%',LOWER('$culinary'),'%')
+              and '$waktu' between culinary_place.open and culinary_place.close
+              union
+              select distinct culinary_place.id, culinary_place.name, st_x(st_centroid(culinary_place.geom)) as longitude,st_y(st_centroid(culinary_place.geom)) as latitude,
+              'c' as cat
+              from culinary_place
+              join detail_culinary on culinary_place.id = detail_culinary.id_culinary_place
+              join culinary on detail_culinary.id_culinary = culinary.id
+              where LOWER(culinary.name) like concat('%',LOWER('$culinary'),'%')
+              and '$waktu' between culinary_place.open and culinary_place.close";
   }
   else if( $kode=='f20' && isset($_GET['type']) && isset($_GET['color']) && isset($_GET['rad']) ){
       $type = $_GET['type'];
@@ -333,9 +429,9 @@
             join detail_event as de on a.id = de.id_worship_place
             join event on de.id_event = event.id
             join ustad on de.id_ustad = ustad.id
-            where administrators.name like '%$garin%'
-            and event.name like '%$event%'
-            and ustad.name like '%$ustad%'";
+            where administrators.name like concat('%',LOWER('$garin'),'%')
+            and event.name like concat('%',LOWER('$event'),'%')
+            and ustad.name like concat('%',LOWER('$ustad'),'%')";
   }
   else if( $kode=='f23' && isset($_GET['fasilitas_culinary']) && isset($_GET['angkot'])  && isset($_GET['rad']) ){
       $fasilitas_culinary = $_GET['fasilitas_culinary']; //'a','b','c'
@@ -356,7 +452,7 @@
 		          and angkot.id = '$angkot'
               union
               select distinct culinary_place.id, culinary_place.name, st_x(st_centroid(culinary_place.geom)) as longitude,st_y(st_centroid(culinary_place.geom)) as latitude,
-              'cp' as cat
+              'c' as cat
               from culinary_place
               join detail_facility_culinary on culinary_place.id = detail_facility_culinary.id_culinary_place
               join facility_culinary on detail_facility_culinary.id_facility = facility_culinary.id

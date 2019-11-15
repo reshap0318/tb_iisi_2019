@@ -69,13 +69,35 @@ function f8() {
 }
 
 function f9() {
-  var link = '';
+  var inp_max = $('#txt_max_f9').val();
+  var inp_min = $('#txt_min_f9').val();
+  if(inp_max <= inp_min){
+    alert('Data Minimal Lebih Besar Dari Data Max');
+    return ;
+  }
+  var inp_fasilitas_culinary = [];
+  for(i=0;i<$("input[name=fculinary_f9]:checked").length;i++){
+    inp_fasilitas_culinary.push($("input[name=fculinary_f9]:checked")[i].value);
+  }
+  var inp_rad = $('#ra_radius_f9').val();
+  inp_rad = inp_rad*100;
+  $('#angka_f9').html(inp_rad);
+  var link = 'kelp3.php?kode=f9&fasilitas_culinary='+inp_fasilitas_culinary+'&max='+inp_max+'&min='+inp_min+'&rad='+inp_rad;
   ajaxkelp3(link);
 }
 
 function f10() {
-  var link = '';
-  ajaxkelp3(link);
+    var inp_fasilitas = [];
+    for(i=0;i<$("input[name=fasilitas_f10]:checked").length;i++){
+      inp_fasilitas.push($("input[name=fasilitas_f10]:checked")[i].value);
+    }
+    var inp_waktu = $('#se_waktu_f10').val();
+    var inp_type_tourism = $('#se_ttourism_f10').children("option:selected").val();
+    var inp_rad = $('#ra_radius_f10').val();
+    inp_rad = inp_rad*100;
+    $('#angka_f10').html(inp_rad);
+    var link = 'kelp3.php?kode=f10&fasilitas_tourism='+inp_fasilitas+'&type_tourism='+inp_type_tourism+'&waktu='+inp_waktu+'&rad='+inp_rad;
+    ajaxkelp3(link);
 }
 
 function f11() {
@@ -113,13 +135,35 @@ function f13() {
 }
 
 function f14() {
-  var link = '';
-  ajaxkelp3(link);
+    var inp_max = $('#txt_max_f14').val();
+    var inp_min = $('#txt_min_f14').val();
+    if(inp_max <= inp_min){
+      alert('Data Minimal Lebih Besar Dari Data Max');
+      return ;
+    }
+    var inp_industry_type = $('#se_tindustry_f14').val();
+    var inp_kecamatan = $('#se_kecamatan_f14').children("option:selected").val();
+    var inp_rad = $('#ra_radius_f14').val();
+    inp_rad = inp_rad*100;
+    $('#angka_f14').html(inp_rad);
+    var link = 'kelp3.php?kode=f14&industry_type='+inp_industry_type+'&max='+inp_max+'&min='+inp_min+'&rad='+inp_rad+'&kecamatan='+inp_kecamatan;
+    ajaxkelp3(link);
 }
 
 function f15() {
-  var link = '';
-  ajaxkelp3(link);
+    var inp_max = $('#txt_max_f15').val();
+    var inp_min = $('#txt_min_f15').val();
+    if(inp_max <= inp_min){
+      alert('Data Minimal Lebih Besar Dari Data Max');
+      return ;
+    }
+    var inp_souvenir_type = $('#se_tsouvenir_f15').val();
+    var inp_angkot = $('#se_angkot_f15').children("option:selected").val();
+    var inp_rad = $('#ra_radius_f15').val();
+    inp_rad = inp_rad*100;
+    $('#angka_f15').html(inp_rad);
+    var link = 'kelp3.php?kode=f15&souvenir_type='+inp_souvenir_type+'&max='+inp_max+'&min='+inp_min+'&rad='+inp_rad+'&angkot='+inp_angkot;
+    ajaxkelp3(link);
 }
 
 function f16() {
@@ -159,8 +203,13 @@ function f18() {
 }
 
 function f19() {
-  var link = '';
-  ajaxkelp3(link);
+    var inp_culinary = $('#txt_culinary_f19').val();
+    var inp_waktu = $('#se_waktu_f19').val();
+    var inp_rad = $('#ra_radius_f19').val();
+    inp_rad = inp_rad*100;
+    $('#angka_f19').html(inp_rad);
+    var link = 'kelp3.php?kode=f19&culinary='+inp_culinary+'&waktu='+inp_waktu+'&rad='+inp_rad;
+    ajaxkelp3(link);
 }
 
 function f20() {
